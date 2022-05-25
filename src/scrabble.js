@@ -37,57 +37,88 @@ class Scrabble {
     this.word = word
   }
 
+  // score() {
+  //   let score = 0
+
+  //   if (this.word === null) {
+  //     return score
+  //   }
+
+  //   const wordToCheck = this.word.toUpperCase()
+
+  //   const indexOfOpenCurlyBracket = wordToCheck.indexOf('{')
+  //   console.log('indexOfOpenCurlyBracket', indexOfOpenCurlyBracket)
+  //   const indexOfCloseCurlyBracket = wordToCheck.indexOf('}')
+  //   console.log('indexOfCloseCurlyBracket', indexOfCloseCurlyBracket)
+
+  //   const indexOfOpenSquareBracket = wordToCheck.indexOf('[')
+  //   const indexOfCloseSquareBracket = wordToCheck.indexOf(']')
+
+  //   for (let i = 0; i < wordToCheck.length; i++) {
+  //     let thisScore = 0
+
+  //     for (let j = 0; j < letterValue.length; j++) {
+  //       if (letterValue[j].letter.includes(wordToCheck[i])) {
+
+  //         thisScore = letterValue[j].value
+  //         console.log('index: ', i)
+  //         console.log('original score: ', thisScore)
+
+  //         if (indexOfOpenCurlyBracket < i && i < indexOfCloseCurlyBracket) {
+  //           thisScore *= 2
+  //           console.log('doubled score: ', thisScore)
+  //         }
+
+  //         if (indexOfOpenSquareBracket < i && i < indexOfCloseSquareBracket) {
+  //           thisScore *= 3
+  //           console.log('tripled score: ', thisScore)
+  //         }
+
+  //         score += thisScore
+  //         console.log('total score: ', score)
+  //       }
+  //     }
+  //   }
+
+  //   return score
+  // }
+
   score() {
     let score = 0
-
     if (this.word === null) {
-      return score = 0
+      return score
     }
 
     const wordToCheck = this.word.toUpperCase()
 
-    const indexOfOpenCurlyBracket = wordToCheck.indexOf('{')
-    console.log('indexOfOpenCurlyBracket', indexOfOpenCurlyBracket)
-    const indexOfCloseCurlyBracket = wordToCheck.indexOf('}')
-    console.log('indexOfCloseCurlyBracket', indexOfCloseCurlyBracket)
-
-    const indexOfOpenSquareBracket = wordToCheck.indexOf('[')
-    const indexOfCloseSquareBracket = wordToCheck.indexOf(']')
+    let getDouble = false
+    let getTriple = false
 
     for (let i = 0; i < wordToCheck.length; i++) {
       let thisScore = 0
 
       for (let j = 0; j < letterValue.length; j++) {
-
         if (letterValue[j].letter.includes(wordToCheck[i])) {
-
           thisScore = letterValue[j].value
-          console.log('index: ', i)
-          console.log('original score: ', thisScore)
-
-          if (indexOfOpenCurlyBracket < i < indexOfCloseCurlyBracket) {
+          if (getDouble) {
             thisScore *= 2
-            console.log('doubled score: ', thisScore)
-          }
-
-          if (indexOfOpenSquareBracket < i < indexOfCloseSquareBracket) {
+          } else if (getTriple) {
             thisScore *= 3
-            console.log('tripled score: ', thisScore)
           }
-
           score += thisScore
-          console.log('total score: ', score)
+        } else if (wordToCheck[i] === '{') {
+          getDouble = true
+        } else if (wordToCheck[i] === '[') {
+          getTriple = true
+        } else if (wordToCheck[i] === '}') {
+          getDouble = false
+        } else if (wordToCheck[i] === ']') {
+          getTriple = false
         }
       }
     }
-
     return score
   }
 }
-
-const Cabbage = new Scrabble('C[a]bb{a}ge')
-console.log('Create Cabbage: ', Cabbage)
-console.log('Cabbage score: ', Cabbage.score())
-
 
 module.exports = Scrabble
