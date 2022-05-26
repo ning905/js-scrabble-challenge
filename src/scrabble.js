@@ -1,36 +1,31 @@
-const letterValue = [
-  {
-    letter: ['A', 'E', 'I', 'O', 'U', 'L', 'N', 'R', 'S', 'T'],
-    value: 1
-  },
-  {
-    letter: ['D', 'G'],
-    value: 2
-  },
-  {
-    letter: ['B', 'C', 'M', 'P'],
-    value: 3
-  },
-  {
-    letter: ['F', 'H', 'V', 'W', 'Y'],
-    value: 4
-  },
-  {
-    letter: ['K'],
-    value: 5
-  },
-  {
-    letter: ['J', 'X'],
-    value: 8
-  },
-  {
-    letter: ['Q', 'Z'],
-    value: 10
-  }
-]
-
-console.log('value of K: ', letterValue[4].value)
-console.log('Include K', letterValue[4].letter.includes('K'))
+const letterValue = {
+  A: 1,
+  E: 1,
+  I: 1,
+  O: 1,
+  U: 1,
+  L: 1,
+  N: 1,
+  R: 1,
+  S: 1,
+  T: 1,
+  D: 2,
+  G: 2,
+  B: 3,
+  C: 3,
+  M: 3,
+  P: 3,
+  F: 4,
+  H: 4,
+  V: 4,
+  W: 4,
+  Y: 4,
+  K: 5,
+  J: 8,
+  X: 8,
+  Q: 10,
+  Z: 10
+}
 
 class Scrabble {
   constructor(word) {
@@ -56,30 +51,22 @@ class Scrabble {
 
   //   for (let i = 0; i < wordToCheck.length; i++) {
   //     let thisScore = 0
+  //     const letterToCheck = wordToCheck[i]
 
-  //     for (let j = 0; j < letterValue.length; j++) {
-  //       if (letterValue[j].letter.includes(wordToCheck[i])) {
+  //     if (Object.keys(letterValue).includes(letterToCheck)) {
 
-  //         thisScore = letterValue[j].value
-  //         console.log('index: ', i)
-  //         console.log('original score: ', thisScore)
+  //       thisScore = letterValue[letterToCheck]
 
-  //         if (indexOfOpenCurlyBracket < i && i < indexOfCloseCurlyBracket) {
-  //           thisScore *= 2
-  //           console.log('doubled score: ', thisScore)
-  //         }
-
-  //         if (indexOfOpenSquareBracket < i && i < indexOfCloseSquareBracket) {
-  //           thisScore *= 3
-  //           console.log('tripled score: ', thisScore)
-  //         }
-
-  //         score += thisScore
-  //         console.log('total score: ', score)
+  //       if (indexOfOpenCurlyBracket < i && i < indexOfCloseCurlyBracket) {
+  //         thisScore *= 2
   //       }
+
+  //       if (indexOfOpenSquareBracket < i && i < indexOfCloseSquareBracket) {
+  //         thisScore *= 3
+  //       }
+  //       score += thisScore
   //     }
   //   }
-
   //   return score
   // }
 
@@ -96,25 +83,23 @@ class Scrabble {
 
     for (let i = 0; i < wordToCheck.length; i++) {
       let thisScore = 0
-
-      for (let j = 0; j < letterValue.length; j++) {
-        if (letterValue[j].letter.includes(wordToCheck[i])) {
-          thisScore = letterValue[j].value
-          if (getDouble) {
-            thisScore *= 2
-          } else if (getTriple) {
-            thisScore *= 3
-          }
-          score += thisScore
-        } else if (wordToCheck[i] === '{') {
-          getDouble = true
-        } else if (wordToCheck[i] === '[') {
-          getTriple = true
-        } else if (wordToCheck[i] === '}') {
-          getDouble = false
-        } else if (wordToCheck[i] === ']') {
-          getTriple = false
+      const letterToCheck = wordToCheck[i]
+      if (Object.keys(letterValue).includes(letterToCheck)) {
+        thisScore = letterValue[letterToCheck]
+        if (getDouble) {
+          thisScore *= 2
+        } else if (getTriple) {
+          thisScore *= 3
         }
+        score += thisScore
+      } else if (letterToCheck === '{') {
+        getDouble = true
+      } else if (letterToCheck === '[') {
+        getTriple = true
+      } else if (letterToCheck === '}') {
+        getDouble = false
+      } else if (letterToCheck === ']') {
+        getTriple = false
       }
     }
     return score
