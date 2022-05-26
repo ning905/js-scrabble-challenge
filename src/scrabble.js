@@ -83,13 +83,7 @@ class Scrabble {
   score(word) {
     let score = 0
     if (word === null) {
-      return (
-        'The score for this word is ' +
-        score +
-        '. \n Your total score is ' +
-        this.totalScore +
-        '.'
-      )
+      return `This word is invalid. \n Your total score is ${this.totalScore} .`
     }
 
     const wordToCheck = word.toUpperCase()
@@ -119,23 +113,8 @@ class Scrabble {
       }
     }
     this.totalScore = this.calTotalScore(score)
-    return (
-      'The score for this word is ' +
-      score +
-      '. \n Your total score is ' +
-      this.totalScore +
-      '.'
-    )
+    return `The score for ${word} is ${score}. \n Your total score is ${this.totalScore} .`
   }
 }
-
-const Ning = new Scrabble('Ning')
-console.log('Create user Ning: ', Ning)
-console.log('Ning score: \n', Ning.score('dog'))
-console.log('Update user Ning: ', Ning)
-console.log('Ning score: \n', Ning.score('cat'))
-console.log('Update user Ning: ', Ning)
-console.log('Ning score: \n', Ning.score('cabbage'))
-console.log('Update user Ning: ', Ning)
 
 module.exports = Scrabble
