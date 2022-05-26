@@ -28,10 +28,20 @@ const letterValue = {
 }
 
 class Scrabble {
-  constructor(word) {
-    this.word = word
+  constructor(user, totalScore = 0) {
+    this.user = user
+    this.totalScore = totalScore
   }
 
+  totalWords(word) {
+    const totalWords = []
+    this.totalWords = totalWords.push(word)
+  }
+
+  calTotalScore(score) {
+    this.totalScore += score
+    return this.totalScore
+  }
   // score() {
   //   let score = 0
 
@@ -70,13 +80,19 @@ class Scrabble {
   //   return score
   // }
 
-  score() {
+  score(word) {
     let score = 0
-    if (this.word === null) {
-      return score
+    if (word === null) {
+      return (
+        'The score for this word is ' +
+        score +
+        '. \n Your total score is ' +
+        this.totalScore +
+        '.'
+      )
     }
 
-    const wordToCheck = this.word.toUpperCase()
+    const wordToCheck = word.toUpperCase()
 
     let getDouble = false
     let getTriple = false
@@ -102,8 +118,24 @@ class Scrabble {
         getTriple = false
       }
     }
-    return score
+    this.totalScore = this.calTotalScore(score)
+    return (
+      'The score for this word is ' +
+      score +
+      '. \n Your total score is ' +
+      this.totalScore +
+      '.'
+    )
   }
 }
+
+const Ning = new Scrabble('Ning')
+console.log('Create user Ning: ', Ning)
+console.log('Ning score: \n', Ning.score('dog'))
+console.log('Update user Ning: ', Ning)
+console.log('Ning score: \n', Ning.score('cat'))
+console.log('Update user Ning: ', Ning)
+console.log('Ning score: \n', Ning.score('cabbage'))
+console.log('Update user Ning: ', Ning)
 
 module.exports = Scrabble
